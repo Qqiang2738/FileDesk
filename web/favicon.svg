@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="文序 FileDesk">
+  <rect width="48" height="48" rx="15" fill="#244d3f"/>
+  <g fill="#ffffff" transform="translate(24 24) skewX(-14) translate(-24 -24)">
+    <rect x="13.7" y="17.8" width="6.9" height="17.8" rx="2.7"/>
+    <rect x="23.3" y="12.3" width="6.9" height="21.9" rx="2.7"/>
+    <rect x="32.9" y="9.6" width="6.9" height="27.4" rx="2.7"/>
+  </g>
+</svg>

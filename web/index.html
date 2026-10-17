@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light" />
+  <meta name="filedesk-build" content="1.0.0" />
+  <title>文序 · FileDesk</title>
+  <link rel="icon" href="/assets/favicon.svg?v=1.0.0" type="image/svg+xml" />
+  <link rel="icon" href="/assets/favicon.png?v=1.0.0" type="image/png" />
+  <link rel="stylesheet" href="/assets/styles.css?v=1.0.0" />
+</head>
+<body>
+  <div class="app" id="app">
+    <header class="toolbar">
+      <div class="toolbar-inner">
+        <div class="identity" aria-label="文序 FileDesk">
+          <div class="logo" aria-hidden="true"><span></span><span></span><span></span></div>
+          <div class="identity-text"><strong>文序</strong><span>FileDesk</span></div>
+        </div>
+        <div class="toolbar-actions">
+          <span class="privacy"><span class="privacy-dot"></span>仅在本机处理</span>
+          <button id="history-toggle" class="btn-icon" type="button" title="历史记录与重新下载" aria-label="历史记录与重新下载"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/><path d="M12 7v5l3 2"/></svg></button>
+        </div>
+      </div>
+    </header>
+    <main class="main" id="main">
+      <section class="empty-view" id="empty-view" aria-label="文件工作台">
+        <div class="success-banner" id="success-banner" hidden role="status" aria-live="polite">
+          <div class="success-mark" aria-hidden="true">✓</div>
+          <div class="success-content"><strong>处理完成，已发起下载</strong><p id="success-filename">请查看浏览器下载记录，或重新下载结果。</p></div>
+          <button id="redownload" type="button" class="success-redownload">重新下载</button>
+          <button id="success-dismiss" type="button" class="success-dismiss" aria-label="关闭完成提示">×</button>
+        </div>
+        <div class="empty-heading"><h1>放入文件</h1></div>
+        <div id="welcome-drop" class="welcome-drop" tabindex="0" role="button" aria-label="添加本地文件">
+          <div class="drop-illustration" aria-hidden="true"><div class="paper paper-one"></div><div class="paper paper-two"></div><div class="paper paper-three"><svg viewBox="0 0 24 24"><path d="M12 16V5M8 9l4-4 4 4M5 16v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2"/></svg></div></div>
+          <strong>拖拽文件到这里</strong><span>或 <b>点击选择文件</b></span>
+          <div class="drop-formats">PDF <i>·</i> Excel / CSV / Word / PPT <i>·</i> 图片</div>
+        </div>
+        
+      </section>
+      <section class="loaded-view" id="loaded-view" hidden>
+        <div class="workspace-header"><div><h1 id="workspace-title">当前文件</h1><p id="workspace-subtitle" hidden></p></div><button id="reset-all" class="new-task-button" type="button"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/></svg>开始新任务</button></div>
+        <div class="board">
+          <section class="files-panel" aria-label="已添加文件">
+            <div class="panel-top"><div class="panel-title"><strong>当前文件</strong><span id="total-count" class="count-pill">0</span></div><button id="add-inline" class="quiet-button" type="button">+ 继续添加</button></div>
+            <div id="group-tabs" class="group-tabs" role="tablist" aria-label="文件类别"></div>
+            <div id="file-list" class="file-list" aria-live="polite"></div>
+            <div class="files-footer"><span id="file-summary">已添加文件</span><span id="file-hint">可调整文件顺序</span></div>
+          </section>
+          <section class="actions-panel" aria-label="建议操作">
+            <div class="panel-top"><div class="panel-title"><strong id="recommend-title">可执行操作</strong></div></div>
+            <p id="recommend-subtitle" class="recommend-subtitle"></p>
+            <div id="operation-list" class="operation-list"></div>
+            
+        <section class="execution" aria-label="处理和导出">
+          <div class="execution-top"><div class="operation-identity"><div class="chosen-icon" id="chosen-icon"></div><div><h2 id="chosen-name">文件处理</h2></div></div><span id="selection-summary" class="selection-summary"></span></div>
+          <p id="chosen-desc" class="chosen-desc"></p>
+          <div id="single-file-pick" class="single-file-pick" hidden></div>
+          <div id="option-fields" class="option-fields"></div>
+          <div class="execution-footer"><div class="execution-note" id="execution-note" role="status" aria-live="polite"></div><button id="cancel-job" class="cancel-job" type="button" hidden>取消任务</button><button id="execute" class="execute" type="button" disabled><span id="execute-label">开始处理</span><svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button></div>
+          <div id="inline-error" class="inline-error" hidden role="alert"></div><div id="result-bar" class="result-bar" hidden aria-live="polite"></div>
+        </section>
+          </section>
+        </div>
+        
+      </section>
+    </main>
+    <footer class="app-footer"><span></span><span class="version">V1.0.0</span></footer>
+  </div>
+  <input id="file-input" type="file" multiple hidden />
+  <div id="drag-overlay" class="drag-overlay" hidden><div><svg viewBox="0 0 24 24"><path d="M12 16V4m-4 4 4-4 4 4M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg><strong>松开鼠标，交给文序</strong><span>自动识别文件类型</span></div></div>
+  <div id="history-backdrop" class="history-backdrop" hidden></div>
+  <section id="history-panel" class="history-panel" hidden role="dialog" aria-modal="true" aria-labelledby="history-title" tabindex="-1"><div class="history-header"><strong id="history-title">历史记录</strong><button id="history-close" class="btn-icon" type="button" aria-label="关闭记录">×</button></div><p>本机结果保留 7 天，最多 20 条。</p><div id="history-list" class="history-list"></div><div class="history-footer"><span></span><button id="history-clear" class="history-clear" type="button">清空历史结果</button></div></section>
+  <div id="preview-backdrop" class="preview-backdrop" hidden></div>
+  <section id="preview-modal" class="preview-modal" hidden role="dialog" aria-modal="true" aria-labelledby="preview-title" tabindex="-1">
+    <header class="preview-header"><div><strong id="preview-title">文件预览</strong><p id="preview-subtitle"></p></div><button id="preview-close" type="button" class="btn-icon" aria-label="关闭预览">×</button></header>
+    <div class="preview-body"><aside id="preview-files" class="preview-files" aria-label="本次预览的文件"></aside>
+      <section class="preview-main" aria-label="预览内容"><div id="preview-stage" class="preview-stage" role="status" aria-live="polite"></div>
+        <div id="preview-pages" class="preview-pages" hidden><button id="preview-prev" type="button" aria-label="上一页">‹</button><span id="preview-page-label">第 1 页</span><button id="preview-next" type="button" aria-label="下一页">›</button></div>
+        <div id="preview-thumbs" class="preview-thumbs" aria-label="页面缩略图"></div>
+      </section>
+    </div>
+    <footer class="preview-footer"><button id="preview-done" type="button" class="new-task-button">返回工作台</button></footer>
+  </section>
+  <div id="toast" class="toast" hidden role="status" aria-live="polite"></div>
+  <script defer src="/assets/app.js?v=1.0.0"></script>
+</body>
+</html>

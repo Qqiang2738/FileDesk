@@ -1,0 +1,9 @@
+.venv/
+.desktop-venv/
+.build-venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+build/
+dist/
+.DS_Store
